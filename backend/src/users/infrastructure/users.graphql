@@ -1,0 +1,26 @@
+interface UserBase {
+    firstName: String
+    lastName: String
+    email: String
+}
+
+type User implements UserBase {
+    id: String!
+    firstName: String!
+    lastName: String!
+    email: String!
+}
+
+type Mutation {
+    createUser(
+        lastName: String!
+        email: String!
+        password: String!
+        firstName: String!
+    ): User
+}
+
+type Query {
+    findUser(id: String!): User
+    findAllUsers: [User]
+}
