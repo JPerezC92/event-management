@@ -4,20 +4,27 @@ interface UserBase {
     email: String
 }
 
+scalar Date
+
 type User implements UserBase {
     id: String!
     firstName: String!
     lastName: String!
     email: String!
+    updatedAt: Date!
+    createdAt: Date!
+}
+
+input UserCreate {
+    firstName: String!
+    lastName: String!
+    email: String!
+    password: String!
+    confirmPassword: String!
 }
 
 type Mutation {
-    createUser(
-        lastName: String!
-        email: String!
-        password: String!
-        firstName: String!
-    ): User
+    createUser(input: UserCreate): User
 }
 
 type Query {

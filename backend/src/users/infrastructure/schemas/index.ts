@@ -1,1 +1,2 @@
-export * from './userCreate';
+export * from './userCreate.schema';
+export * from './userEndpoint.schema';

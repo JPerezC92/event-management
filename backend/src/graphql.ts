@@ -8,27 +8,36 @@
 /* tslint:disable */
 /* eslint-disable */
 
+export interface UserCreate {
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+    confirmPassword: string;
+}
+
 export interface UserBase {
     firstName?: Nullable<string>;
     lastName?: Nullable<string>;
     email?: Nullable<string>;
 }
 
-export class User implements UserBase {
+export interface User extends UserBase {
     id: string;
     firstName: string;
     lastName: string;
     email: string;
+    updatedAt: Date;
+    createdAt: Date;
 }
 
-export abstract class IMutation {
-    abstract createUser(lastName: string, email: string, password: string, firstName: string): Nullable<User> | Promise<Nullable<User>>;
+export interface IMutation {
+    createUser(input?: Nullable<UserCreate>): Nullable<User> | Promise<Nullable<User>>;
 }
 
-export abstract class IQuery {
-    abstract findUser(id: string): Nullable<User> | Promise<Nullable<User>>;
-
-    abstract findAllUsers(): Nullable<Nullable<User>[]> | Promise<Nullable<Nullable<User>[]>>;
+export interface IQuery {
+    findUser(id: string): Nullable<User> | Promise<Nullable<User>>;
+    findAllUsers(): Nullable<Nullable<User>[]> | Promise<Nullable<Nullable<User>[]>>;
 }
 
 type Nullable<T> = T | null;
