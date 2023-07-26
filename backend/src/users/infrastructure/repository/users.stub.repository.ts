@@ -5,12 +5,13 @@ export const userStub1 = new User({
     firstName: 'John',
     lastName: 'Doe',
     email: 'john@gmail.comm',
-    password: '123456',
+    password: '$2b$10$I/3hsX3MLp1PLSy0i9WH.eRdpyKkV.Pk2.4jDFJ5YqFLW2X1TTPZa',
     updatedAt: new Date(),
     createdAt: new Date(),
+    tokenList: {},
 });
 
-const userInMemoryDatabase: User[] = [userStub1];
+export const userInMemoryDatabase: User[] = [userStub1];
 
 export function userStubRepository(): UsersRepository {
     return {

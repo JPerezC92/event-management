@@ -8,6 +8,11 @@
 /* tslint:disable */
 /* eslint-disable */
 
+export interface Credencials {
+    email: string;
+    password: string;
+}
+
 export interface UserCreate {
     firstName: string;
     lastName: string;
@@ -22,6 +27,16 @@ export interface UserBase {
     email?: Nullable<string>;
 }
 
+export interface AuthPayload {
+    accessToken: string;
+    refreshToken: string;
+}
+
+export interface IMutation {
+    login(input: Credencials): Nullable<AuthPayload> | Promise<Nullable<AuthPayload>>;
+    createUser(input?: Nullable<UserCreate>): Nullable<User> | Promise<Nullable<User>>;
+}
+
 export interface User extends UserBase {
     id: string;
     firstName: string;
@@ -29,10 +44,6 @@ export interface User extends UserBase {
     email: string;
     updatedAt: Date;
     createdAt: Date;
-}
-
-export interface IMutation {
-    createUser(input?: Nullable<UserCreate>): Nullable<User> | Promise<Nullable<User>>;
 }
 
 export interface IQuery {

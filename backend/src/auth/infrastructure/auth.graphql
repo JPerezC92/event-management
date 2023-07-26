@@ -1,0 +1,13 @@
+type AuthPayload {
+    accessToken: String!
+    refreshToken: String!
+}
+
+input Credencials {
+    email: String!
+    password: String!
+}
+
+type Mutation {
+    login(input: Credencials!): AuthPayload
+}

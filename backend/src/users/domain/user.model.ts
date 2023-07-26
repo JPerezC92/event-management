@@ -1,7 +1,7 @@
 import { PasswordCipher } from '@/shared/domain';
 import * as crypto from 'crypto';
 
-interface UserProps {
+export interface UserProps {
     id: string;
     firstName: string;
     lastName: string;
@@ -9,6 +9,7 @@ interface UserProps {
     password: string;
     updatedAt: Date;
     createdAt: Date;
+    tokenList: Record<string, string>;
 }
 
 export class User implements UserProps {
@@ -19,6 +20,7 @@ export class User implements UserProps {
     password: string;
     updatedAt: Date;
     createdAt: Date;
+    tokenList: Record<string, string>;
 
     constructor(props: UserProps) {
         this.id = props.id;
@@ -28,6 +30,7 @@ export class User implements UserProps {
         this.password = props.password;
         this.updatedAt = props.updatedAt;
         this.createdAt = props.createdAt;
+        this.tokenList = props.tokenList;
     }
 
     static async create(
@@ -40,6 +43,7 @@ export class User implements UserProps {
             password: await passwordCipher.hash(props.password),
             updatedAt: new Date(),
             createdAt: new Date(),
+            tokenList: {},
         });
     }
 }

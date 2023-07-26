@@ -16,6 +16,7 @@ model User {
     lastName  String
     password  String
     email     String   @unique
+    tokenList Json     @default(dbgenerated()) @db.Json
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 }

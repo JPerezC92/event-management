@@ -3,9 +3,9 @@ import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { GraphQLFormattedError } from 'graphql';
 
+import { AuthModule } from '@/auth/infrastructure';
 import { SharedModule } from '@/shared/infrastructure';
 import { UsersModule } from '@/users/infrastructure';
-import { DatabaseService } from './shared/infrastructure/services';
 
 @Module({
     imports: [
@@ -37,7 +37,7 @@ import { DatabaseService } from './shared/infrastructure/services';
         }),
         UsersModule,
         SharedModule,
+        AuthModule,
     ],
-    providers: [DatabaseService],
 })
 export class AppModule {}
