@@ -46,4 +46,8 @@ export class User implements UserProps {
             tokenList: {},
         });
     }
+
+    static isInstance(other: unknown): other is User {
+        return other instanceof User;
+    }
 }

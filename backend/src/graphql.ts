@@ -37,6 +37,12 @@ export interface IMutation {
     createUser(input?: Nullable<UserCreate>): Nullable<User> | Promise<Nullable<User>>;
 }
 
+export interface IQuery {
+    whoami(): Nullable<User> | Promise<Nullable<User>>;
+    findUser(id: string): Nullable<User> | Promise<Nullable<User>>;
+    findAllUsers(): Nullable<Nullable<User>[]> | Promise<Nullable<Nullable<User>[]>>;
+}
+
 export interface User extends UserBase {
     id: string;
     firstName: string;
@@ -44,11 +50,6 @@ export interface User extends UserBase {
     email: string;
     updatedAt: Date;
     createdAt: Date;
-}
-
-export interface IQuery {
-    findUser(id: string): Nullable<User> | Promise<Nullable<User>>;
-    findAllUsers(): Nullable<Nullable<User>[]> | Promise<Nullable<Nullable<User>[]>>;
 }
 
 type Nullable<T> = T | null;

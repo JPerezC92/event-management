@@ -11,3 +11,7 @@ input Credencials {
 type Mutation {
     login(input: Credencials!): AuthPayload
 }
+
+type Query {
+    whoami: User
+}

@@ -1,5 +1,5 @@
 const envVariables = [
-    'JWT_ACCESSS_TOKEN_SECRET',
+    'JWT_ACCESS_TOKEN_SECRET',
     'JWT_REFRESH_TOKEN_SECRET',
 ] as const;
 

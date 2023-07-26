@@ -1,11 +1,15 @@
 import { Injectable } from '@nestjs/common';
 
 import { Authenticate } from '@/auth/application';
+import { Whoami } from '@/auth/application/whoami';
 import { authPrismaRepository } from '@/auth/infrastructure/repository/';
 import {
     BcryptPasswordCipherService,
     DatabaseService,
 } from '@/shared/infrastructure/services';
+import { User } from '@/users/domain';
+import { UsersPrismaRepository } from '@/users/infrastructure/repository';
+import { userEndpoint } from '@/users/infrastructure/schemas';
 import * as graphql from 'src/graphql';
 import { AccessTokenCipherService } from './accessTokenCipher.service';
 import { RefreshTokenCipherService } from './refreshTokenCipher.service';
@@ -31,6 +35,16 @@ export class AuthService {
                     this.accessTokenCipher,
                     this.refreshTokenCipher,
                 ).execute({ credentials, ip }),
+        );
+    }
+
+    async whoami(userId: User['id']): Promise<graphql.User> {
+        return await this.dbService.$transaction(
+            async (trx) =>
+                await Whoami(
+                    UsersPrismaRepository(trx),
+                    userEndpoint.parse,
+                ).execute({ userId }),
         );
     }
 }
