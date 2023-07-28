@@ -34,6 +34,7 @@ export interface AuthPayload {
 
 export interface IMutation {
     login(input: Credencials): Nullable<AuthPayload> | Promise<Nullable<AuthPayload>>;
+    refreshToken(): Nullable<AuthPayload> | Promise<Nullable<AuthPayload>>;
     createUser(input?: Nullable<UserCreate>): Nullable<User> | Promise<Nullable<User>>;
 }
 

@@ -12,6 +12,14 @@ export function authPrismaRepository(db: Db): AuthRepository {
             return userAuthDbToModel(user);
         },
 
+        async findById(id) {
+            const user = await db.user.findUnique({ where: { id } });
+
+            if (!user) return null;
+
+            return userAuthDbToModel(user);
+        },
+
         async update(userAuth) {
             const user = await db.user.update({
                 where: { id: userAuth.id, updatedAt: userAuth.updatedAt },

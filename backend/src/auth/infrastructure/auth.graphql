@@ -10,6 +10,7 @@ input Credencials {
 
 type Mutation {
     login(input: Credencials!): AuthPayload
+    refreshToken: AuthPayload
 }
 
 type Query {

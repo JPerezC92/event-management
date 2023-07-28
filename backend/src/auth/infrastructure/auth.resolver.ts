@@ -2,7 +2,10 @@ import { UseFilters, UseGuards } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 
 import { UserFromReq } from '@/auth/infrastructure/decorators';
-import { JwtAccessGuard } from '@/auth/infrastructure/guards';
+import {
+    JwtAccessGuard,
+    JwtRefreshAuthGuard,
+} from '@/auth/infrastructure/guards';
 import { credentials } from '@/auth/infrastructure/schemas';
 import { GetIp } from '@/shared/infrastructure/decorators';
 import {
@@ -34,5 +37,14 @@ export class AuthResolver {
     @UseGuards(JwtAccessGuard)
     async whoami(@UserFromReq() user: User): Promise<graphql.User> {
         return await this.authService.whoami(user.id);
+    }
+
+    @Mutation()
+    @UseGuards(JwtRefreshAuthGuard)
+    async refreshToken(
+        @UserFromReq() user: User,
+        @GetIp() ip: string,
+    ): Promise<graphql.AuthPayload> {
+        return await this.authService.refreshToken(user.id, ip);
     }
 }

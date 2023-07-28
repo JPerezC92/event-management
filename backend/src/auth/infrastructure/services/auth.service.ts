@@ -1,8 +1,11 @@
 import { Injectable } from '@nestjs/common';
 
-import { Authenticate } from '@/auth/application';
-import { Whoami } from '@/auth/application/whoami';
-import { authPrismaRepository } from '@/auth/infrastructure/repository/';
+import {
+    Authenticate,
+    RevalidateAuthentication,
+    Whoami,
+} from '@/auth/application';
+import { authPrismaRepository } from '@/auth/infrastructure/repository';
 import {
     BcryptPasswordCipherService,
     DatabaseService,
@@ -45,6 +48,20 @@ export class AuthService {
                     UsersPrismaRepository(trx),
                     userEndpoint.parse,
                 ).execute({ userId }),
+        );
+    }
+
+    async refreshToken(
+        userId: string,
+        ip: string,
+    ): Promise<graphql.AuthPayload> {
+        return await this.dbService.$transaction(
+            async (trx) =>
+                await RevalidateAuthentication(
+                    authPrismaRepository(trx),
+                    this.accessTokenCipher,
+                    this.refreshTokenCipher,
+                ).execute({ userId, ip }),
         );
     }
 }

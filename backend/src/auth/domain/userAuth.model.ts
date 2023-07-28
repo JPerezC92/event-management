@@ -3,7 +3,7 @@ import * as crypto from 'crypto';
 import { User } from '@/users/domain';
 import { AccessPayload } from './accessPayload.model';
 import { Authentication } from './authentication.model';
-import { RefreshPayload } from './refreshToken.model';
+import { RefreshPayload } from './refreshPayload.model';
 import { TokenCipher } from './token.cipher';
 
 interface UserAuthProps
@@ -24,8 +24,6 @@ export class UserAuth implements UserAuthProps {
 
     constructor(props: UserAuthProps) {
         this.id = props.id;
-        // this.firstName = props.firstName;
-        // this.lastName = props.lastName;
         this.email = props.email;
         this.password = props.password;
         this.updatedAt = props.updatedAt;
@@ -46,11 +44,13 @@ export class UserAuth implements UserAuthProps {
         refreshTokenCipher: TokenCipher<RefreshPayload>,
         ip: string,
     ): Promise<Authentication> {
-        this.tokenList[ip] = this.refreshPayload().tokenId;
+        const refreshPayload = this.refreshPayload();
+
+        this.tokenList[ip] = refreshPayload.tokenId;
 
         return new Authentication(
             await accessTokenCipher.encrypt(this.accessPayload()),
-            await refreshTokenCipher.encrypt(this.refreshPayload()),
+            await refreshTokenCipher.encrypt(refreshPayload),
         );
     }
 }

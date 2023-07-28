@@ -15,6 +15,14 @@ export function authStubRepository(): AuthRepository {
             return userAuthDbToModel(user);
         },
 
+        async findById(id) {
+            const user = userInMemoryDatabase.find((user) => user.id === id);
+
+            if (!user) return null;
+
+            return userAuthDbToModel(user);
+        },
+
         async update(userAuth) {
             const index = userInMemoryDatabase.findIndex(
                 (user) => user.id === userAuth.id,
