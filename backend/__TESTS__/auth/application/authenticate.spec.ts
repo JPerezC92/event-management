@@ -1,3 +1,7 @@
+import { ConfigModule } from '@nestjs/config';
+import { JwtModule } from '@nestjs/jwt';
+import { Test } from '@nestjs/testing';
+
 import { Authenticate } from '@/auth/application';
 import { Authentication, InvalidCredentialsError } from '@/auth/domain';
 import {
@@ -13,15 +17,12 @@ import {
     userInMemoryDatabase,
     userStub1,
 } from '@/users/infrastructure/repository';
-import { ConfigModule } from '@nestjs/config';
-import { JwtModule } from '@nestjs/jwt';
-import { Test } from '@nestjs/testing';
 
 describe('auth/authenticate use case', () => {
     let accessTokenCipher: AccessTokenCipherService;
     let refreshTokenCipher: RefreshTokenCipherService;
     let bcryptPasswordCipher: BcryptPasswordCipherService;
-    const ip = '195.167.1.32';
+    const ip = '1.1.1.1';
 
     beforeEach(async () => {
         const module = await Test.createTestingModule({
