@@ -1,9 +1,9 @@
 import { UseFilters, UseGuards } from '@nestjs/common';
-import { Args, Mutation, Resolver } from '@nestjs/graphql';
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 
 import { UserFromReq } from '@/auth/infrastructure/decorators';
 import { JwtAccessGuard } from '@/auth/infrastructure/guards';
-import { eventCreate } from '@/events/infrastructure/schemas';
+import * as eventSchemas from '@/events/infrastructure/schemas';
 import { EventsService } from '@/events/infrastructure/services';
 import {
     DbExceptionFilter,
@@ -16,17 +16,24 @@ import * as graphql from 'src/graphql';
 
 @Resolver()
 @UseFilters(ZodExceptionFilter, DomainExceptionFilter, DbExceptionFilter)
+@UseGuards(JwtAccessGuard)
 export class EventsResolver {
     constructor(private readonly eventsService: EventsService) {}
 
     @Mutation()
-    @UseGuards(JwtAccessGuard)
-    async createEvent(
+    async eventCreate(
         @Args() { input }: Input,
         @UserFromReq() user: User,
     ): Promise<graphql.Event> {
-        const data = eventCreate.parse(input);
+        const data = eventSchemas.eventCreate.parse(input);
 
-        return await this.eventsService.createEvent(data, user.id);
+        return await this.eventsService.create(data, user.id);
+    }
+
+    @Query()
+    async eventFind(@Args() { input }: Input): Promise<graphql.Event> {
+        const eventFind = eventSchemas.eventFind.parse(input);
+
+        return await this.eventsService.find(eventFind.id);
     }
 }

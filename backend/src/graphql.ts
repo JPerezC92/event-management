@@ -21,6 +21,10 @@ export interface EventInput {
     description: string;
 }
 
+export interface EventFindInput {
+    id: string;
+}
+
 export interface UserCreate {
     firstName: string;
     lastName: string;
@@ -43,12 +47,13 @@ export interface AuthPayload {
 export interface IMutation {
     login(input: Credencials): Nullable<AuthPayload> | Promise<Nullable<AuthPayload>>;
     refreshToken(): Nullable<AuthPayload> | Promise<Nullable<AuthPayload>>;
-    createEvent(input?: Nullable<EventInput>): Nullable<Event> | Promise<Nullable<Event>>;
-    createUser(input?: Nullable<UserCreate>): Nullable<User> | Promise<Nullable<User>>;
+    eventCreate(input?: Nullable<EventInput>): Nullable<Event> | Promise<Nullable<Event>>;
+    userCreate(input?: Nullable<UserCreate>): Nullable<User> | Promise<Nullable<User>>;
 }
 
 export interface IQuery {
     whoami(): Nullable<User> | Promise<Nullable<User>>;
+    eventFind(input: EventFindInput): Nullable<Event> | Promise<Nullable<Event>>;
     findUser(id: string): Nullable<User> | Promise<Nullable<User>>;
     findAllUsers(): Nullable<Nullable<User>[]> | Promise<Nullable<Nullable<User>[]>>;
 }

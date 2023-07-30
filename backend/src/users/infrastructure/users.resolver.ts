@@ -21,7 +21,7 @@ export class UsersResolver {
     ) {}
 
     @Mutation()
-    async createUser(@Args() { input }: Input): Promise<graphql.User> {
+    async userCreate(@Args() { input }: Input): Promise<graphql.User> {
         const data = userSchemas.userCreate.parse(input);
 
         return await this.usersService.create(data);

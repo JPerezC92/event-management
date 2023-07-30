@@ -17,6 +17,14 @@ input EventInput {
     description: String!
 }
 
+input EventFindInput {
+    id: String!
+}
+
 type Mutation {
-    createEvent(input: EventInput): Event
+    eventCreate(input: EventInput): Event
+}
+
+type Query {
+    eventFind(input: EventFindInput!): Event
 }

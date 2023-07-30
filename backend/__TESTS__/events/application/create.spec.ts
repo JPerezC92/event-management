@@ -1,6 +1,6 @@
 import { Create } from '@/events/application';
 import { Event } from '@/events/domain';
-import { EventsStubRepository } from '@/events/infrastructure/repository/eventsStub.repository';
+import { EventsStubRepository } from '@/events/infrastructure/repository';
 import { UserNotFoundError } from '@/users/domain';
 import {
     userStub1,
@@ -31,6 +31,7 @@ describe('events/create use case', () => {
 
         // THEN
         expect(res).toBeInstanceOf(Event);
+        expect(res).toMatchObject({ ...eventNew, userId });
     });
 
     test('should throw an error if user does not exist', async () => {

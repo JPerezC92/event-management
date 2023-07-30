@@ -1,5 +1,5 @@
 import { EventsRepository } from '@/events/domain';
-import { eventDbToModelAdapter } from '@/events/infrastructure/adapters/eventDbToModel.adapter';
+import { eventDbToModelAdapter } from '@/events/infrastructure/adapters';
 import { Db } from '@/shared/infrastructure/services';
 
 export function EventsPrismaRepository(db: Db): EventsRepository {
@@ -18,6 +18,15 @@ export function EventsPrismaRepository(db: Db): EventsRepository {
             });
 
             return eventDbToModelAdapter(_event);
+        },
+        async findById(id) {
+            const event = await db.event.findUnique({
+                where: { id },
+            });
+
+            if (!event) return null;
+
+            return eventDbToModelAdapter(event);
         },
     };
 }

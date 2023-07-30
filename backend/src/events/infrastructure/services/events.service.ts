@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
 import * as eventUseCase from '@/events/application';
+import { Event } from '@/events/domain';
 import { EventsPrismaRepository } from '@/events/infrastructure/repository';
 import { EventCreate } from '@/events/infrastructure/schemas';
 import { DatabaseService } from '@/shared/infrastructure/services';
@@ -10,7 +11,7 @@ import { UsersPrismaRepository } from '@/users/infrastructure/repository';
 @Injectable()
 export class EventsService {
     constructor(private readonly dbService: DatabaseService) {}
-    async createEvent(eventCreate: EventCreate, userId: User['id']) {
+    async create(eventCreate: EventCreate, userId: User['id']) {
         return await this.dbService.$transaction(
             async (trx) =>
                 await eventUseCase
@@ -19,6 +20,15 @@ export class EventsService {
                         UsersPrismaRepository(trx),
                     )
                     .execute({ eventNew: eventCreate, userId }),
+        );
+    }
+
+    async find(eventId: Event['id']) {
+        return await this.dbService.$transaction(
+            async (trx) =>
+                await eventUseCase
+                    .Find(EventsPrismaRepository(trx))
+                    .execute({ eventId }),
         );
     }
 }

@@ -24,7 +24,7 @@ input UserCreate {
 }
 
 type Mutation {
-    createUser(input: UserCreate): User
+    userCreate(input: UserCreate): User
 }
 
 type Query {

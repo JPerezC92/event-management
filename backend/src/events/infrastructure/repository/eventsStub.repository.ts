@@ -10,5 +10,15 @@ export function EventsStubRepository(): EventsRepository {
 
             return event;
         },
+
+        async findById(id) {
+            const event = eventsInMemoryDatabase.find(
+                (event) => event.id === id,
+            );
+
+            if (!event) return null;
+
+            return event;
+        },
     };
 }
