@@ -11,7 +11,18 @@ export const userStub1 = new User({
     tokenList: {},
 });
 
-export const userInMemoryDatabase: User[] = [userStub1];
+export const userStub2 = new User({
+    id: '2',
+    firstName: 'Jane',
+    lastName: 'Doe',
+    email: 'jane@gmail.com',
+    password: '$2b$10$I/3hsX3MLp1PLSy0i9WH.eRdpyKkV.Pk2.4jDFJ5YqFLW2X1TTPZa',
+    updatedAt: new Date(),
+    createdAt: new Date(),
+    tokenList: {},
+});
+
+export const userInMemoryDatabase: User[] = [userStub1, userStub2];
 
 export function usersStubRepository(): UsersRepository {
     return {

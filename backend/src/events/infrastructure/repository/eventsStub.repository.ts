@@ -1,4 +1,5 @@
 import { Event, EventsRepository } from '@/events/domain';
+import { userStub1 } from '@/users/infrastructure/repository';
 
 export const eventStub1 = new Event({
     id: '602d6acd-50f2-4236-acf5-283786d01937',
@@ -7,7 +8,7 @@ export const eventStub1 = new Event({
     date: new Date(),
     location: 'event-location',
     time: new Date(),
-    userId: 'user-id',
+    userId: userStub1.id,
     createdAt: new Date(),
     updatedAt: new Date(),
 });

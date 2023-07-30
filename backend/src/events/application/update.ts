@@ -12,6 +12,11 @@ interface UpdateInput {
     userId: User['id'];
 }
 
+/**
+ * @throws { EventNotFoundError }
+ * @throws { UserNotFoundError }
+ * @throws { EventNotCreatedByUserError }
+ */
 export function Update(
     eventsRepository: EventsRepository,
     usersRepository: UsersRepository,
