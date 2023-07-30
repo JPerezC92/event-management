@@ -13,7 +13,7 @@ export const userStub1 = new User({
 
 export const userInMemoryDatabase: User[] = [userStub1];
 
-export function userStubRepository(): UsersRepository {
+export function usersStubRepository(): UsersRepository {
     return {
         async findById(id) {
             const user = userInMemoryDatabase.find((user) => user.id === id);

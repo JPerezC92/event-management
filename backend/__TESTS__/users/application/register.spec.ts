@@ -3,7 +3,7 @@ import { Register } from '@/users/application/register';
 import { EmailAlreadyInUseError } from '@/users/domain';
 import {
     userStub1,
-    userStubRepository,
+    usersStubRepository,
 } from '@/users/infrastructure/repository';
 import { userEndpoint } from '@/users/infrastructure/schemas';
 
@@ -21,7 +21,7 @@ describe('users/register use case', () => {
 
         // WHEN
         const res = await Register(
-            userStubRepository(),
+            usersStubRepository(),
             new BcryptPasswordCipherService(),
             userEndpoint.parse,
         ).execute({ userCreate });
@@ -43,7 +43,7 @@ describe('users/register use case', () => {
 
         // WHEN
         const res = Register(
-            userStubRepository(),
+            usersStubRepository(),
             new BcryptPasswordCipherService(),
             userEndpoint.parse,
         ).execute({ userCreate: { ...userCreate, email: userStub1.email } });

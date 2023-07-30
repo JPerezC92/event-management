@@ -1,7 +1,18 @@
-import { EventsRepository } from '@/events/domain';
-import { Event as EventDb } from '@prisma/client';
+import { Event, EventsRepository } from '@/events/domain';
 
-const eventsInMemoryDatabase: EventDb[] = [];
+export const eventStub1 = new Event({
+    id: '602d6acd-50f2-4236-acf5-283786d01937',
+    name: 'event-name',
+    description: 'event-description',
+    date: new Date(),
+    location: 'event-location',
+    time: new Date(),
+    userId: 'user-id',
+    createdAt: new Date(),
+    updatedAt: new Date(),
+});
+
+const eventsInMemoryDatabase: Event[] = [eventStub1];
 
 export function EventsStubRepository(): EventsRepository {
     return {

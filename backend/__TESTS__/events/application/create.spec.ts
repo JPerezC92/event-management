@@ -4,7 +4,7 @@ import { EventsStubRepository } from '@/events/infrastructure/repository';
 import { UserNotFoundError } from '@/users/domain';
 import {
     userStub1,
-    userStubRepository,
+    usersStubRepository,
 } from '@/users/infrastructure/repository';
 
 describe('events/create use case', () => {
@@ -23,7 +23,7 @@ describe('events/create use case', () => {
         // WHEN
         const res = await Create(
             EventsStubRepository(),
-            userStubRepository(),
+            usersStubRepository(),
         ).execute({
             eventNew,
             userId,
@@ -49,7 +49,7 @@ describe('events/create use case', () => {
         // WHEN
         const res = Create(
             EventsStubRepository(),
-            userStubRepository(),
+            usersStubRepository(),
         ).execute({
             eventNew,
             userId,

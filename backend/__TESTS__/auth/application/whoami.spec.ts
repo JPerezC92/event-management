@@ -2,7 +2,7 @@ import { Whoami } from '@/auth/application/whoami';
 import { UserNotFoundError } from '@/users/domain';
 import {
     userStub1,
-    userStubRepository,
+    usersStubRepository,
 } from '@/users/infrastructure/repository';
 import { userEndpoint } from '@/users/infrastructure/schemas';
 
@@ -13,7 +13,7 @@ describe('auth/whoami use case', () => {
 
         // WHEN
         const res = await Whoami(
-            userStubRepository(),
+            usersStubRepository(),
             userEndpoint.parse,
         ).execute({ userId });
 
@@ -33,7 +33,7 @@ describe('auth/whoami use case', () => {
         const userId = 'userNotExists';
 
         // WHEN
-        const res = Whoami(userStubRepository(), userEndpoint.parse).execute({
+        const res = Whoami(usersStubRepository(), userEndpoint.parse).execute({
             userId,
         });
 
