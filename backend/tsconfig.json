@@ -23,6 +23,7 @@
         "noImplicitReturns": true,
         "strict": true,
         "paths": {
+            "@/events/*": ["src/events/*"],
             "@/auth/*": ["src/auth/*"],
             "@/shared/*": ["src/shared/*"],
             "@/users/*": ["src/users/*"]

@@ -13,6 +13,14 @@ export interface Credencials {
     password: string;
 }
 
+export interface EventInput {
+    name: string;
+    date: Date;
+    time: Date;
+    location: string;
+    description: string;
+}
+
 export interface UserCreate {
     firstName: string;
     lastName: string;
@@ -35,6 +43,7 @@ export interface AuthPayload {
 export interface IMutation {
     login(input: Credencials): Nullable<AuthPayload> | Promise<Nullable<AuthPayload>>;
     refreshToken(): Nullable<AuthPayload> | Promise<Nullable<AuthPayload>>;
+    createEvent(input?: Nullable<EventInput>): Nullable<Event> | Promise<Nullable<Event>>;
     createUser(input?: Nullable<UserCreate>): Nullable<User> | Promise<Nullable<User>>;
 }
 
@@ -42,6 +51,15 @@ export interface IQuery {
     whoami(): Nullable<User> | Promise<Nullable<User>>;
     findUser(id: string): Nullable<User> | Promise<Nullable<User>>;
     findAllUsers(): Nullable<Nullable<User>[]> | Promise<Nullable<Nullable<User>[]>>;
+}
+
+export interface Event {
+    id: string;
+    name: string;
+    date: Date;
+    time: Date;
+    location: string;
+    description: string;
 }
 
 export interface User extends UserBase {

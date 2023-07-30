@@ -1,0 +1,22 @@
+scalar Date
+
+type Event {
+    id: String!
+    name: String!
+    date: Date!
+    time: Date!
+    location: String!
+    description: String!
+}
+
+input EventInput {
+    name: String!
+    date: Date!
+    time: Date!
+    location: String!
+    description: String!
+}
+
+type Mutation {
+    createEvent(input: EventInput): Event
+}

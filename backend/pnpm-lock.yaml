@@ -24,6 +24,7 @@ specifiers:
   '@typescript-eslint/eslint-plugin': ^5.59.11
   '@typescript-eslint/parser': ^5.59.11
   bcrypt: 5.1.0
+  dayjs: 1.11.9
   dotenv-cli: 7.2.1
   eslint: ^8.42.0
   eslint-config-prettier: ^8.8.0
@@ -58,6 +59,7 @@ dependencies:
   '@nestjs/platform-express': 10.0.5_dfaaejchera3ndicxym4uxmkbe
   '@prisma/client': 5.0.0_prisma@5.0.0
   bcrypt: 5.1.0
+  dayjs: 1.11.9
   graphql: 16.7.1
   ip: 1.1.8
   passport-jwt: 4.0.1
@@ -2748,6 +2750,10 @@ packages:
 
   /cssfilter/0.0.10:
     resolution: {integrity: sha512-FAaLDaplstoRsDR8XGYH51znUN0UY7nMc6Z9/fvE8EXGwvJE9hu7W2vHwx1+bd6gCYnln9nLbzxFTrcO9YQDZw==}
+    dev: false
+
+  /dayjs/1.11.9:
+    resolution: {integrity: sha512-QvzAURSbQ0pKdIye2txOzNaHmxtUBXerpY0FJsFXUMKbIZeFm5ht1LS/jFsrncjnmtv8HsG0W2g6c0zUjZWmpA==}
     dev: false
 
   /debug/2.6.9:

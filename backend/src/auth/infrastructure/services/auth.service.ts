@@ -1,10 +1,6 @@
 import { Injectable } from '@nestjs/common';
 
-import {
-    Authenticate,
-    RevalidateAuthentication,
-    Whoami,
-} from '@/auth/application';
+import * as authUseCase from '@/auth/application';
 import { authPrismaRepository } from '@/auth/infrastructure/repository';
 import {
     BcryptPasswordCipherService,
@@ -32,22 +28,23 @@ export class AuthService {
     ): Promise<graphql.AuthPayload> {
         return await this.dbService.$transaction(
             async (trx) =>
-                await Authenticate(
-                    authPrismaRepository(trx),
-                    this.passwordCipher,
-                    this.accessTokenCipher,
-                    this.refreshTokenCipher,
-                ).execute({ credentials, ip }),
+                await authUseCase
+                    .Authenticate(
+                        authPrismaRepository(trx),
+                        this.passwordCipher,
+                        this.accessTokenCipher,
+                        this.refreshTokenCipher,
+                    )
+                    .execute({ credentials, ip }),
         );
     }
 
     async whoami(userId: User['id']): Promise<graphql.User> {
         return await this.dbService.$transaction(
             async (trx) =>
-                await Whoami(
-                    UsersPrismaRepository(trx),
-                    userEndpoint.parse,
-                ).execute({ userId }),
+                await authUseCase
+                    .Whoami(UsersPrismaRepository(trx), userEndpoint.parse)
+                    .execute({ userId }),
         );
     }
 
@@ -57,11 +54,13 @@ export class AuthService {
     ): Promise<graphql.AuthPayload> {
         return await this.dbService.$transaction(
             async (trx) =>
-                await RevalidateAuthentication(
-                    authPrismaRepository(trx),
-                    this.accessTokenCipher,
-                    this.refreshTokenCipher,
-                ).execute({ userId, ip }),
+                await authUseCase
+                    .RevalidateAuthentication(
+                        authPrismaRepository(trx),
+                        this.accessTokenCipher,
+                        this.refreshTokenCipher,
+                    )
+                    .execute({ userId, ip }),
         );
     }
 }

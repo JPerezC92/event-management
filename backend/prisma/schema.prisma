@@ -19,4 +19,18 @@ model User {
     tokenList Json     @default(dbgenerated()) @db.Json
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
+    Event     Event[]
+}
+
+model Event {
+    id          String   @id @default(uuid())
+    name        String
+    date        DateTime @map("date") @db.Date()
+    time        DateTime @map("time") @db.Time(0)
+    location    String
+    description String
+    user        User     @relation(fields: [userId], references: [id])
+    userId      String
+    updatedAt   DateTime @updatedAt
+    createdAt   DateTime @default(now())
 }

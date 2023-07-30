@@ -4,6 +4,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { GraphQLFormattedError } from 'graphql';
 
 import { AuthModule } from '@/auth/infrastructure';
+import { EventsModule } from '@/events/infrastructure';
 import { SharedModule } from '@/shared/infrastructure';
 import { UsersModule } from '@/users/infrastructure';
 
@@ -38,6 +39,7 @@ import { UsersModule } from '@/users/infrastructure';
         UsersModule,
         SharedModule,
         AuthModule,
+        EventsModule,
     ],
 })
 export class AppModule {}
