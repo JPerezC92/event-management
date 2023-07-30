@@ -1,5 +1,6 @@
-import { User } from '@/users/domain';
 import * as crypto from 'crypto';
+
+import { User } from '@/users/domain';
 
 interface EventProps {
     id: string;
@@ -48,5 +49,24 @@ export class Event implements EventProps {
             updatedAt: new Date(),
             createdAt: new Date(),
         });
+    }
+
+    update(
+        props: { id: Event['id'] } & Partial<
+            Pick<
+                EventProps,
+                'name' | 'date' | 'time' | 'location' | 'description'
+            >
+        >,
+    ) {
+        return new Event({
+            ...this,
+            ...props,
+            updatedAt: new Date(),
+        });
+    }
+
+    isCreatedBy(user: User) {
+        return this.userId === user.id;
     }
 }

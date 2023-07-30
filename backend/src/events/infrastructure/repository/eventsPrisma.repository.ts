@@ -28,5 +28,20 @@ export function EventsPrismaRepository(db: Db): EventsRepository {
 
             return eventDbToModelAdapter(event);
         },
+
+        async update(event) {
+            const _event = await db.event.update({
+                where: { id: event.id },
+                data: {
+                    name: event.name,
+                    description: event.description,
+                    date: event.date,
+                    location: event.location,
+                    time: event.time,
+                },
+            });
+
+            return eventDbToModelAdapter(_event);
+        },
     };
 }

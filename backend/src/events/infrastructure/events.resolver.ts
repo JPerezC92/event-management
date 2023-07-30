@@ -36,4 +36,14 @@ export class EventsResolver {
 
         return await this.eventsService.find(eventFind.id);
     }
+
+    @Mutation()
+    async eventUpdate(
+        @Args() { input }: Input,
+        @UserFromReq() user: User,
+    ): Promise<graphql.Event> {
+        const eventUpdate = eventSchemas.eventUpdate.parse(input);
+
+        return await this.eventsService.update(eventUpdate, user.id);
+    }
 }

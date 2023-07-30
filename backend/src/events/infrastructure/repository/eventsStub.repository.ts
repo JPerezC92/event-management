@@ -31,5 +31,15 @@ export function EventsStubRepository(): EventsRepository {
 
             return event;
         },
+
+        async update(event) {
+            const eventIndex = eventsInMemoryDatabase.findIndex(
+                (event) => event.id === event.id,
+            );
+
+            eventsInMemoryDatabase[eventIndex] = event;
+
+            return event;
+        },
     };
 }

@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import * as eventUseCase from '@/events/application';
 import { Event } from '@/events/domain';
 import { EventsPrismaRepository } from '@/events/infrastructure/repository';
-import { EventCreate } from '@/events/infrastructure/schemas';
+import { EventCreate, EventUpdate } from '@/events/infrastructure/schemas';
 import { DatabaseService } from '@/shared/infrastructure/services';
 import { User } from '@/users/domain';
 import { UsersPrismaRepository } from '@/users/infrastructure/repository';
@@ -29,6 +29,18 @@ export class EventsService {
                 await eventUseCase
                     .Find(EventsPrismaRepository(trx))
                     .execute({ eventId }),
+        );
+    }
+
+    async update(eventUpdate: EventUpdate, id: string): Promise<Event> {
+        return await this.dbService.$transaction(
+            async (trx) =>
+                await eventUseCase
+                    .Update(
+                        EventsPrismaRepository(trx),
+                        UsersPrismaRepository(trx),
+                    )
+                    .execute({ eventUpdate, userId: id }),
         );
     }
 }

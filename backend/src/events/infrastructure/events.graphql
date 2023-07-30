@@ -21,8 +21,18 @@ input EventFindInput {
     id: String!
 }
 
+input EventUpdateInput {
+    id: String!
+    name: String
+    date: Date
+    time: Date
+    location: String
+    description: String
+}
+
 type Mutation {
     eventCreate(input: EventInput): Event
+    eventUpdate(input: EventUpdateInput!): Event
 }
 
 type Query {

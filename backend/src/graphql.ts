@@ -25,6 +25,15 @@ export interface EventFindInput {
     id: string;
 }
 
+export interface EventUpdateInput {
+    id: string;
+    name?: Nullable<string>;
+    date?: Nullable<Date>;
+    time?: Nullable<Date>;
+    location?: Nullable<string>;
+    description?: Nullable<string>;
+}
+
 export interface UserCreate {
     firstName: string;
     lastName: string;
@@ -48,6 +57,7 @@ export interface IMutation {
     login(input: Credencials): Nullable<AuthPayload> | Promise<Nullable<AuthPayload>>;
     refreshToken(): Nullable<AuthPayload> | Promise<Nullable<AuthPayload>>;
     eventCreate(input?: Nullable<EventInput>): Nullable<Event> | Promise<Nullable<Event>>;
+    eventUpdate(input: EventUpdateInput): Nullable<Event> | Promise<Nullable<Event>>;
     userCreate(input?: Nullable<UserCreate>): Nullable<User> | Promise<Nullable<User>>;
 }
 
