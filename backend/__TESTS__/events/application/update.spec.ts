@@ -4,8 +4,8 @@ import {
     EventNotFoundError,
 } from '@/events/domain';
 import {
-    EventsStubRepository,
     eventStub1,
+    eventsStubRepository,
 } from '@/events/infrastructure/repository';
 import { UserNotFoundError } from '@/users/domain';
 import {
@@ -27,7 +27,7 @@ describe('events/update use case', () => {
 
         // WHEN
         const event = await Update(
-            EventsStubRepository(),
+            eventsStubRepository(),
             usersStubRepository(),
         ).execute({
             eventUpdate,
@@ -51,7 +51,7 @@ describe('events/update use case', () => {
 
         // WHEN
         const event = Update(
-            EventsStubRepository(),
+            eventsStubRepository(),
             usersStubRepository(),
         ).execute({
             eventUpdate,
@@ -75,7 +75,7 @@ describe('events/update use case', () => {
 
         // WHEN
         const event = Update(
-            EventsStubRepository(),
+            eventsStubRepository(),
             usersStubRepository(),
         ).execute({
             eventUpdate,
@@ -99,7 +99,7 @@ describe('events/update use case', () => {
 
         // WHEN
         const event = Update(
-            EventsStubRepository(),
+            eventsStubRepository(),
             usersStubRepository(),
         ).execute({
             eventUpdate,

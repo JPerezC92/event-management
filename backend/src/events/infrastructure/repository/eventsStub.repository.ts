@@ -13,9 +13,9 @@ export const eventStub1 = new Event({
     updatedAt: new Date(),
 });
 
-let eventsInMemoryDatabase: Event[] = [eventStub1];
+export function eventsStubRepository(): EventsRepository {
+    let eventsInMemoryDatabase: Event[] = [eventStub1];
 
-export function EventsStubRepository(): EventsRepository {
     return {
         async save(event) {
             eventsInMemoryDatabase.push(event);

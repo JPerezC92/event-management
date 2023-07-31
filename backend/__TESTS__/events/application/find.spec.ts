@@ -1,7 +1,7 @@
 import { Find } from '@/events/application';
 import { Event } from '@/events/domain';
 import {
-    EventsStubRepository,
+    eventsStubRepository,
     eventStub1,
 } from '@/events/infrastructure/repository';
 
@@ -11,7 +11,7 @@ describe('events/find use case', () => {
         const eventId = eventStub1.id;
 
         // WHEN
-        const res = await Find(EventsStubRepository()).execute({
+        const res = await Find(eventsStubRepository()).execute({
             eventId,
         });
 
