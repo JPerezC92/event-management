@@ -43,4 +43,16 @@ export class EventsService {
                     .execute({ eventUpdate, userId: id }),
         );
     }
+
+    async delete(eventId: Event['id'], userId: User['id']): Promise<Event> {
+        return await this.dbService.$transaction(
+            async (trx) =>
+                await eventUseCase
+                    .Delete(
+                        EventsPrismaRepository(trx),
+                        UsersPrismaRepository(trx),
+                    )
+                    .execute({ eventId, userId }),
+        );
+    }
 }

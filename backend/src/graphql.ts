@@ -58,6 +58,7 @@ export interface IMutation {
     refreshToken(): Nullable<AuthPayload> | Promise<Nullable<AuthPayload>>;
     eventCreate(input?: Nullable<EventInput>): Nullable<Event> | Promise<Nullable<Event>>;
     eventUpdate(input: EventUpdateInput): Nullable<Event> | Promise<Nullable<Event>>;
+    eventDelete(id: string): Nullable<Event> | Promise<Nullable<Event>>;
     userCreate(input?: Nullable<UserCreate>): Nullable<User> | Promise<Nullable<User>>;
 }
 

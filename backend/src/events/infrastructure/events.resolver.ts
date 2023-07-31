@@ -46,4 +46,14 @@ export class EventsResolver {
 
         return await this.eventsService.update(eventUpdate, user.id);
     }
+
+    @Mutation()
+    async eventDelete(
+        @Args() { input }: Input,
+        @UserFromReq() user: User,
+    ): Promise<graphql.Event> {
+        const eventDelete = eventSchemas.eventDelete.parse(input);
+
+        return await this.eventsService.delete(eventDelete.id, user.id);
+    }
 }

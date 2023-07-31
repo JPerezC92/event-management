@@ -14,7 +14,7 @@ export function Find(
 
             if (!event) throw new EventNotFoundError(eventId);
 
-            return event as unknown as Event;
+            return event;
         },
     };
 }

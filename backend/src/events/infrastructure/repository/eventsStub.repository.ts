@@ -13,7 +13,7 @@ export const eventStub1 = new Event({
     updatedAt: new Date(),
 });
 
-const eventsInMemoryDatabase: Event[] = [eventStub1];
+let eventsInMemoryDatabase: Event[] = [eventStub1];
 
 export function EventsStubRepository(): EventsRepository {
     return {
@@ -39,6 +39,14 @@ export function EventsStubRepository(): EventsRepository {
             );
 
             eventsInMemoryDatabase[eventIndex] = event;
+
+            return event;
+        },
+
+        async delete(event) {
+            eventsInMemoryDatabase = eventsInMemoryDatabase.filter(
+                (_event) => _event.id !== event.id,
+            );
 
             return event;
         },

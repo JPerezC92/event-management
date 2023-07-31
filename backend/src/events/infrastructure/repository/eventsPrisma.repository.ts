@@ -43,5 +43,13 @@ export function EventsPrismaRepository(db: Db): EventsRepository {
 
             return eventDbToModelAdapter(_event);
         },
+
+        async delete(event) {
+            const _event = await db.event.delete({
+                where: { id: event.id },
+            });
+
+            return eventDbToModelAdapter(_event);
+        },
     };
 }

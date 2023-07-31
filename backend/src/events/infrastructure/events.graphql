@@ -33,6 +33,7 @@ input EventUpdateInput {
 type Mutation {
     eventCreate(input: EventInput): Event
     eventUpdate(input: EventUpdateInput!): Event
+    eventDelete(id: String!): Event
 }
 
 type Query {
