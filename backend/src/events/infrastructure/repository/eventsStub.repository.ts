@@ -14,8 +14,32 @@ export const eventStub1 = new Event({
     updatedAt: new Date(),
 });
 
+export const eventStub2 = new Event({
+    id: '602d6acd-50f2-4236-acf5-283786d01938',
+    name: 'event-name 2',
+    description: 'event-description',
+    date: new Date(),
+    location: 'event-location',
+    time: new Date(),
+    userId: userStub1.id,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+});
+
+export const eventStub3 = new Event({
+    id: '602d6acd-50f2-4236-acf5-283786d01939',
+    name: 'event-name 3',
+    description: 'my unique event description',
+    date: new Date(),
+    location: 'event-location',
+    time: new Date(),
+    userId: userStub1.id,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+});
+
 export function eventsStubRepository(): EventsRepository {
-    let eventsInMemoryDatabase: Event[] = [eventStub1];
+    let eventsInMemoryDatabase: Event[] = [eventStub1, eventStub2, eventStub3];
 
     return {
         async save(event) {
@@ -53,10 +77,28 @@ export function eventsStubRepository(): EventsRepository {
         },
 
         async search(eventSearch) {
-            const eventList = eventsInMemoryDatabase.slice(
-                eventSearch.page * eventSearch.limit,
-                eventSearch.page * eventSearch.limit + eventSearch.limit,
-            );
+            const eventList = eventsInMemoryDatabase
+                .filter((event) => {
+                    if (
+                        eventSearch.name &&
+                        event.name.includes(eventSearch.name)
+                    )
+                        return true;
+                    if (
+                        eventSearch.description &&
+                        event.description.includes(eventSearch.description)
+                    )
+                        return true;
+
+                    if (event.userId === eventSearch.userId) return true;
+
+                    return false;
+                })
+                .splice(
+                    (eventSearch.page - 1) * eventSearch.limit,
+                    (eventSearch.page - 1) * eventSearch.limit +
+                        eventSearch.limit,
+                );
 
             return {
                 eventList,
