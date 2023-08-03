@@ -3,14 +3,20 @@ import { Injectable } from '@nestjs/common';
 import * as eventUseCase from '@/events/application';
 import { Event } from '@/events/domain';
 import { EventsPrismaRepository } from '@/events/infrastructure/repository';
-import { EventCreate, EventUpdate } from '@/events/infrastructure/schemas';
+import {
+    EventCreate,
+    EventSearch,
+    EventUpdate,
+} from '@/events/infrastructure/schemas';
 import { DatabaseService } from '@/shared/infrastructure/services';
 import { User } from '@/users/domain';
 import { UsersPrismaRepository } from '@/users/infrastructure/repository';
+import { EventSearchResult } from 'src/graphql';
 
 @Injectable()
 export class EventsService {
     constructor(private readonly dbService: DatabaseService) {}
+
     async create(eventCreate: EventCreate, userId: User['id']) {
         return await this.dbService.$transaction(
             async (trx) =>
@@ -53,6 +59,15 @@ export class EventsService {
                         UsersPrismaRepository(trx),
                     )
                     .execute({ eventId, userId }),
+        );
+    }
+
+    async search(eventSearch: EventSearch): Promise<EventSearchResult> {
+        return await this.dbService.$transaction(
+            async (trx) =>
+                await eventUseCase
+                    .Search(EventsPrismaRepository(trx))
+                    .execute({ ...eventSearch }),
         );
     }
 }

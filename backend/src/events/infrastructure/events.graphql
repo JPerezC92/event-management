@@ -30,12 +30,33 @@ input EventUpdateInput {
     description: String
 }
 
+input EventSearchInput {
+    page: Int
+    limit: Int
+    name: String
+    description: String
+    userId: String
+}
+
 type Mutation {
     eventCreate(input: EventInput): Event
     eventUpdate(input: EventUpdateInput!): Event
     eventDelete(id: String!): Event
 }
 
+type SearchInfo {
+    pages: Int!
+    currentPage: Int!
+    prevPage: Int
+    nextPage: Int
+}
+
+type EventSearchResult {
+    info: SearchInfo!
+    eventList: [Event]!
+}
+
 type Query {
     eventFind(input: EventFindInput!): Event
+    eventSearch(input: EventSearchInput): EventSearchResult
 }

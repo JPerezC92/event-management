@@ -16,11 +16,11 @@ import * as graphql from 'src/graphql';
 
 @Resolver()
 @UseFilters(ZodExceptionFilter, DomainExceptionFilter, DbExceptionFilter)
-@UseGuards(JwtAccessGuard)
 export class EventsResolver {
     constructor(private readonly eventsService: EventsService) {}
 
     @Mutation()
+    @UseGuards(JwtAccessGuard)
     async eventCreate(
         @Args() { input }: Input,
         @UserFromReq() user: User,
@@ -31,6 +31,7 @@ export class EventsResolver {
     }
 
     @Query()
+    @UseGuards(JwtAccessGuard)
     async eventFind(@Args() { input }: Input): Promise<graphql.Event> {
         const eventFind = eventSchemas.eventFind.parse(input);
 
@@ -38,6 +39,7 @@ export class EventsResolver {
     }
 
     @Mutation()
+    @UseGuards(JwtAccessGuard)
     async eventUpdate(
         @Args() { input }: Input,
         @UserFromReq() user: User,
@@ -48,6 +50,7 @@ export class EventsResolver {
     }
 
     @Mutation()
+    @UseGuards(JwtAccessGuard)
     async eventDelete(
         @Args() { input }: Input,
         @UserFromReq() user: User,
@@ -55,5 +58,14 @@ export class EventsResolver {
         const eventDelete = eventSchemas.eventDelete.parse(input);
 
         return await this.eventsService.delete(eventDelete.id, user.id);
+    }
+
+    @Query()
+    async eventSearch(
+        @Args() { input }: Input,
+    ): Promise<graphql.EventSearchResult> {
+        const eventSearch = eventSchemas.eventSearch.parse(input);
+
+        return await this.eventsService.search(eventSearch);
     }
 }

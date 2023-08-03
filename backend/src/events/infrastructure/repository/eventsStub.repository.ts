@@ -1,4 +1,5 @@
 import { Event, EventsRepository } from '@/events/domain';
+import { Pagination } from '@/shared/domain';
 import { userStub1 } from '@/users/infrastructure/repository';
 
 export const eventStub1 = new Event({
@@ -49,6 +50,23 @@ export function eventsStubRepository(): EventsRepository {
             );
 
             return event;
+        },
+
+        async search(eventSearch) {
+            const eventList = eventsInMemoryDatabase.slice(
+                eventSearch.page * eventSearch.limit,
+                eventSearch.page * eventSearch.limit + eventSearch.limit,
+            );
+
+            return {
+                eventList,
+                info: Pagination.create({
+                    pages: Math.ceil(
+                        eventsInMemoryDatabase.length / eventSearch.limit,
+                    ),
+                    currentPage: eventSearch.page,
+                }),
+            };
         },
     };
 }

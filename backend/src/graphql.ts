@@ -34,6 +34,14 @@ export interface EventUpdateInput {
     description?: Nullable<string>;
 }
 
+export interface EventSearchInput {
+    page?: Nullable<number>;
+    limit?: Nullable<number>;
+    name?: Nullable<string>;
+    description?: Nullable<string>;
+    userId?: Nullable<string>;
+}
+
 export interface UserCreate {
     firstName: string;
     lastName: string;
@@ -65,6 +73,7 @@ export interface IMutation {
 export interface IQuery {
     whoami(): Nullable<User> | Promise<Nullable<User>>;
     eventFind(input: EventFindInput): Nullable<Event> | Promise<Nullable<Event>>;
+    eventSearch(input?: Nullable<EventSearchInput>): Nullable<EventSearchResult> | Promise<Nullable<EventSearchResult>>;
     findUser(id: string): Nullable<User> | Promise<Nullable<User>>;
     findAllUsers(): Nullable<Nullable<User>[]> | Promise<Nullable<Nullable<User>[]>>;
 }
@@ -76,6 +85,18 @@ export interface Event {
     time: Date;
     location: string;
     description: string;
+}
+
+export interface SearchInfo {
+    pages: number;
+    currentPage: number;
+    prevPage?: Nullable<number>;
+    nextPage?: Nullable<number>;
+}
+
+export interface EventSearchResult {
+    info: SearchInfo;
+    eventList: Nullable<Event>[];
 }
 
 export interface User extends UserBase {

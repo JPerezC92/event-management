@@ -1,6 +1,8 @@
 import { EventsRepository } from '@/events/domain';
 import { eventDbToModelAdapter } from '@/events/infrastructure/adapters';
+import { Pagination } from '@/shared/domain';
 import { Db } from '@/shared/infrastructure/services';
+import { Prisma } from '@prisma/client';
 
 export function EventsPrismaRepository(db: Db): EventsRepository {
     return {
@@ -50,6 +52,48 @@ export function EventsPrismaRepository(db: Db): EventsRepository {
             });
 
             return eventDbToModelAdapter(_event);
+        },
+
+        async search(eventSearch) {
+            const where: Prisma.EventWhereInput = {};
+
+            if (eventSearch.name) {
+                where.name = {
+                    contains: eventSearch.name,
+                };
+            }
+
+            if (eventSearch.description) {
+                where.description = {
+                    contains: eventSearch.description,
+                };
+            }
+
+            if (eventSearch.userId) {
+                where.userId = {
+                    equals: eventSearch.userId,
+                };
+            }
+
+            const eventCount = await db.event.count({ where });
+
+            const eventList = await db.event.findMany({
+                where,
+                orderBy: {
+                    date: 'asc',
+                },
+
+                skip: (eventSearch.page - 1) * eventSearch.limit,
+                take: eventSearch.limit,
+            });
+
+            return {
+                eventList: eventList.map(eventDbToModelAdapter),
+                info: Pagination.create({
+                    pages: Math.ceil(eventCount / eventSearch.limit),
+                    currentPage: eventSearch.page,
+                }),
+            };
         },
     };
 }
