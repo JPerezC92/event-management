@@ -1,0 +1,14 @@
+type Attendee {
+    user: User!
+    event: Event!
+    createdAt: Date!
+    updatedAt: Date!
+}
+
+input AttendeeRegisterInput {
+    eventId: String!
+}
+
+type Mutation {
+    attend(input: AttendeeRegisterInput!): Attendee!
+}

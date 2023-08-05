@@ -7,6 +7,7 @@ import { AuthModule } from '@/auth/infrastructure';
 import { EventsModule } from '@/events/infrastructure';
 import { SharedModule } from '@/shared/infrastructure';
 import { UsersModule } from '@/users/infrastructure';
+import { AttendeesModule } from 'src/attendees/infrastructure';
 
 @Module({
     imports: [
@@ -40,6 +41,7 @@ import { UsersModule } from '@/users/infrastructure';
         SharedModule,
         AuthModule,
         EventsModule,
+        AttendeesModule,
     ],
 })
 export class AppModule {}

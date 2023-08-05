@@ -1,6 +1,6 @@
 import { Db } from '@/shared/infrastructure/services';
 import { UsersRepository } from '@/users/domain';
-import { userDbToModel } from '@/users/infrastructure/adapters';
+import { userDbToModelAdapter } from '@/users/infrastructure/adapters';
 
 export function UsersPrismaRepository(db: Db): UsersRepository {
     return {
@@ -8,7 +8,7 @@ export function UsersPrismaRepository(db: Db): UsersRepository {
             const _user = await db.user.create({
                 data: { ...user },
             });
-            return userDbToModel(_user);
+            return userDbToModelAdapter(_user);
         },
 
         async findById(id) {
@@ -18,7 +18,7 @@ export function UsersPrismaRepository(db: Db): UsersRepository {
 
             if (!user) return null;
 
-            return userDbToModel(user);
+            return userDbToModelAdapter(user);
         },
 
         async findByEmail(email) {
@@ -28,12 +28,12 @@ export function UsersPrismaRepository(db: Db): UsersRepository {
 
             if (!user) return null;
 
-            return userDbToModel(user);
+            return userDbToModelAdapter(user);
         },
 
         async findAll() {
             const userList = await db.user.findMany();
-            return userList.map(userDbToModel);
+            return userList.map(userDbToModelAdapter);
         },
     };
 }

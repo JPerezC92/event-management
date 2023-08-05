@@ -8,6 +8,10 @@
 /* tslint:disable */
 /* eslint-disable */
 
+export interface AttendeeRegisterInput {
+    eventId: string;
+}
+
 export interface Credencials {
     email: string;
     password: string;
@@ -56,18 +60,26 @@ export interface UserBase {
     email?: Nullable<string>;
 }
 
-export interface AuthPayload {
-    accessToken: string;
-    refreshToken: string;
+export interface Attendee {
+    user: User;
+    event: Event;
+    createdAt: Date;
+    updatedAt: Date;
 }
 
 export interface IMutation {
+    attend(input: AttendeeRegisterInput): Attendee | Promise<Attendee>;
     login(input: Credencials): Nullable<AuthPayload> | Promise<Nullable<AuthPayload>>;
     refreshToken(): Nullable<AuthPayload> | Promise<Nullable<AuthPayload>>;
     eventCreate(input?: Nullable<EventInput>): Nullable<Event> | Promise<Nullable<Event>>;
     eventUpdate(input: EventUpdateInput): Nullable<Event> | Promise<Nullable<Event>>;
     eventDelete(id: string): Nullable<Event> | Promise<Nullable<Event>>;
     userCreate(input?: Nullable<UserCreate>): Nullable<User> | Promise<Nullable<User>>;
+}
+
+export interface AuthPayload {
+    accessToken: string;
+    refreshToken: string;
 }
 
 export interface IQuery {
