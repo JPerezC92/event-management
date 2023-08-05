@@ -1,11 +1,12 @@
-import { Attendee } from '@/attendees/domain';
-import { eventDbToModelAdapter } from '@/events/infrastructure/adapters';
-import { userDbToModelAdapter } from '@/users/infrastructure/adapters';
 import {
     EventAttendee,
     Event as EventDb,
     User as UserDb,
-} from 'prisma/prisma-client';
+} from '@prisma/client';
+
+import { Attendee } from '@/attendees/domain';
+import { eventDbToModelAdapter } from '@/events/infrastructure/adapters';
+import { userDbToModelAdapter } from '@/users/infrastructure/adapters';
 
 export function attendeeDbToModelAdapter(
     attendee: EventAttendee,

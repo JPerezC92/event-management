@@ -2,7 +2,7 @@ import { AttendeesRepository } from '@/attendees/domain';
 import { attendeeDbToModelAdapter } from '@/attendees/infrastructure/adapters';
 import { Db } from '@/shared/infrastructure/services';
 
-export function AttendeesPrismaRepository(db: Db): AttendeesRepository {
+export function attendeesPrismaRepository(db: Db): AttendeesRepository {
     return {
         async register(attendee) {
             const attendeeCreated = await db.eventAttendee.create({

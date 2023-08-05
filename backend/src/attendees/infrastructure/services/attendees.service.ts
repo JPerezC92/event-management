@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 
 import * as attendeeUseCase from '@/attendees/application/attend';
-import { AttendeesPrismaRepository } from '@/attendees/infrastructure/repository';
-import { EventsPrismaRepository } from '@/events/infrastructure/repository';
+import { attendeesPrismaRepository } from '@/attendees/infrastructure/repository';
+import { eventsPrismaRepository } from '@/events/infrastructure/repository';
 import { DatabaseService } from '@/shared/infrastructure/services';
-import { UsersPrismaRepository } from '@/users/infrastructure/repository';
+import { usersPrismaRepository } from '@/users/infrastructure/repository';
 import * as graphql from 'src/graphql';
 
 @Injectable()
@@ -18,9 +18,9 @@ export class AttendeesService {
             async (trx) =>
                 await attendeeUseCase
                     .Attend(
-                        AttendeesPrismaRepository(trx),
-                        EventsPrismaRepository(trx),
-                        UsersPrismaRepository(trx),
+                        attendeesPrismaRepository(trx),
+                        eventsPrismaRepository(trx),
+                        usersPrismaRepository(trx),
                     )
                     .execute(attendeeRegister),
         );

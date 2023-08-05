@@ -2,7 +2,7 @@ import { Db } from '@/shared/infrastructure/services';
 import { UsersRepository } from '@/users/domain';
 import { userDbToModelAdapter } from '@/users/infrastructure/adapters';
 
-export function UsersPrismaRepository(db: Db): UsersRepository {
+export function usersPrismaRepository(db: Db): UsersRepository {
     return {
         async save(user) {
             const _user = await db.user.create({

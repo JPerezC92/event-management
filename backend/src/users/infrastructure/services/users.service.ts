@@ -3,7 +3,7 @@ import {
     DatabaseService,
 } from '@/shared/infrastructure/services';
 import * as userUseCase from '@/users/application/register';
-import { UsersPrismaRepository } from '@/users/infrastructure/repository';
+import { usersPrismaRepository } from '@/users/infrastructure/repository';
 
 import * as userSchemas from '@/users/infrastructure/schemas';
 import { Injectable } from '@nestjs/common';
@@ -20,7 +20,7 @@ export class UsersService {
             async (trx) =>
                 await userUseCase
                     .Register(
-                        UsersPrismaRepository(trx),
+                        usersPrismaRepository(trx),
                         this.passwordCipher,
                         userSchemas.userEndpoint.parse,
                     )

@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 import * as eventUseCase from '@/events/application';
 import { Event } from '@/events/domain';
-import { EventsPrismaRepository } from '@/events/infrastructure/repository';
+import { eventsPrismaRepository } from '@/events/infrastructure/repository';
 import {
     EventCreate,
     EventSearch,
@@ -10,7 +10,7 @@ import {
 } from '@/events/infrastructure/schemas';
 import { DatabaseService } from '@/shared/infrastructure/services';
 import { User } from '@/users/domain';
-import { UsersPrismaRepository } from '@/users/infrastructure/repository';
+import { usersPrismaRepository } from '@/users/infrastructure/repository';
 import { EventSearchResult } from 'src/graphql';
 
 @Injectable()
@@ -22,8 +22,8 @@ export class EventsService {
             async (trx) =>
                 await eventUseCase
                     .Create(
-                        EventsPrismaRepository(trx),
-                        UsersPrismaRepository(trx),
+                        eventsPrismaRepository(trx),
+                        usersPrismaRepository(trx),
                     )
                     .execute({ eventNew: eventCreate, userId }),
         );
@@ -33,7 +33,7 @@ export class EventsService {
         return await this.dbService.$transaction(
             async (trx) =>
                 await eventUseCase
-                    .Find(EventsPrismaRepository(trx))
+                    .Find(eventsPrismaRepository(trx))
                     .execute({ eventId }),
         );
     }
@@ -43,8 +43,8 @@ export class EventsService {
             async (trx) =>
                 await eventUseCase
                     .Update(
-                        EventsPrismaRepository(trx),
-                        UsersPrismaRepository(trx),
+                        eventsPrismaRepository(trx),
+                        usersPrismaRepository(trx),
                     )
                     .execute({ eventUpdate, userId: id }),
         );
@@ -55,8 +55,8 @@ export class EventsService {
             async (trx) =>
                 await eventUseCase
                     .Delete(
-                        EventsPrismaRepository(trx),
-                        UsersPrismaRepository(trx),
+                        eventsPrismaRepository(trx),
+                        usersPrismaRepository(trx),
                     )
                     .execute({ eventId, userId }),
         );
@@ -66,7 +66,7 @@ export class EventsService {
         return await this.dbService.$transaction(
             async (trx) =>
                 await eventUseCase
-                    .Search(EventsPrismaRepository(trx))
+                    .Search(eventsPrismaRepository(trx))
                     .execute({ ...eventSearch }),
         );
     }

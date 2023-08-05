@@ -7,7 +7,7 @@ import {
     DatabaseService,
 } from '@/shared/infrastructure/services';
 import { User } from '@/users/domain';
-import { UsersPrismaRepository } from '@/users/infrastructure/repository';
+import { usersPrismaRepository } from '@/users/infrastructure/repository';
 import { userEndpoint } from '@/users/infrastructure/schemas';
 import * as graphql from 'src/graphql';
 import { AccessTokenCipherService } from './accessTokenCipher.service';
@@ -43,7 +43,7 @@ export class AuthService {
         return await this.dbService.$transaction(
             async (trx) =>
                 await authUseCase
-                    .Whoami(UsersPrismaRepository(trx), userEndpoint.parse)
+                    .Whoami(usersPrismaRepository(trx), userEndpoint.parse)
                     .execute({ userId }),
         );
     }

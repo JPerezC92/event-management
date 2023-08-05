@@ -9,7 +9,7 @@ import { UnauthorizedException } from '@/shared/infrastructure/exceptions';
 import { DatabaseService } from '@/shared/infrastructure/services';
 import { EnvVariables } from '@/shared/infrastructure/utils';
 import { User } from '@/users/domain';
-import { UsersPrismaRepository } from '@/users/infrastructure/repository';
+import { usersPrismaRepository } from '@/users/infrastructure/repository';
 
 const accessTokenStrategy = 'AccessTokenStrategy';
 
@@ -31,7 +31,7 @@ export class JwtAccessStrategy extends PassportStrategy(
 
     async validate(payload: AccessPayload): Promise<User> {
         const user = await this.dbService.$transaction((db) =>
-            UsersPrismaRepository(db).findByEmail(payload.email),
+            usersPrismaRepository(db).findByEmail(payload.email),
         );
 
         if (!user) {

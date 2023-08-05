@@ -4,7 +4,7 @@ import { Pagination } from '@/shared/domain';
 import { Db } from '@/shared/infrastructure/services';
 import { Prisma } from '@prisma/client';
 
-export function EventsPrismaRepository(db: Db): EventsRepository {
+export function eventsPrismaRepository(db: Db): EventsRepository {
     return {
         async save(event) {
             const _event = await db.event.create({

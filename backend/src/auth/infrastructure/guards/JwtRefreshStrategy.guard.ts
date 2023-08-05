@@ -2,7 +2,7 @@ import { RefreshPayload } from '@/auth/domain';
 import { DatabaseService } from '@/shared/infrastructure/services';
 import { EnvVariables } from '@/shared/infrastructure/utils';
 import { User } from '@/users/domain';
-import { UsersPrismaRepository } from '@/users/infrastructure/repository';
+import { usersPrismaRepository } from '@/users/infrastructure/repository';
 import {
     ExecutionContext,
     Injectable,
@@ -35,7 +35,7 @@ export class JwtRefreshStrategy extends PassportStrategy(
 
     async validate(_req: Request, payload: RefreshPayload): Promise<User> {
         const user = await this.prismaService.$transaction((db) =>
-            UsersPrismaRepository(db).findByEmail(payload.email),
+            usersPrismaRepository(db).findByEmail(payload.email),
         );
         console.log(
             user?.tokenList[ip.address()],
