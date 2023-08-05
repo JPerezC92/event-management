@@ -29,5 +29,13 @@ export function attendeesStubRepository(): AttendeesRepository {
 
             return attendee;
         },
+
+        async participantsCount(eventId) {
+            const count = attendeesInMemoryDatabase.filter(
+                (attendee) => attendee.event.id === eventId,
+            ).length;
+
+            return count;
+        },
     };
 }

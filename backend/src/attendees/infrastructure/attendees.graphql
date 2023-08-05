@@ -9,6 +9,14 @@ input AttendeeRegisterInput {
     eventId: String!
 }
 
+input AttendeeCount {
+    eventId: String!
+}
+
+type Query {
+    attendeeCount(input: AttendeeCount!): Int!
+}
+
 type Mutation {
-    attend(input: AttendeeRegisterInput!): Attendee!
+    attendeeAttend(input: AttendeeRegisterInput!): Attendee!
 }

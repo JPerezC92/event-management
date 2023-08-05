@@ -51,5 +51,11 @@ export function attendeesPrismaRepository(db: Db): AttendeesRepository {
                 attendee.user,
             );
         },
+
+        async participantsCount(eventId) {
+            const count = await db.eventAttendee.count({ where: { eventId } });
+
+            return count;
+        },
     };
 }

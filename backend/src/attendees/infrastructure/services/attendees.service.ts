@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 
-import * as attendeeUseCase from '@/attendees/application/attend';
+import * as attendeeUseCase from '@/attendees/application';
 import { attendeesPrismaRepository } from '@/attendees/infrastructure/repository';
 import { eventsPrismaRepository } from '@/events/infrastructure/repository';
 import { DatabaseService } from '@/shared/infrastructure/services';
@@ -23,6 +23,18 @@ export class AttendeesService {
                         usersPrismaRepository(trx),
                     )
                     .execute(attendeeRegister),
+        );
+    }
+
+    async count(eventId: attendeeUseCase.CountInput): Promise<number> {
+        return await this.db.$transaction(
+            async (trx) =>
+                await attendeeUseCase
+                    .Count(
+                        eventsPrismaRepository(trx),
+                        attendeesPrismaRepository(trx),
+                    )
+                    .execute(eventId),
         );
     }
 }

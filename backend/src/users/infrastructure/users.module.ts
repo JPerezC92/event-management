@@ -1,5 +1,6 @@
-import { SharedModule } from '@/shared/infrastructure';
 import { Module } from '@nestjs/common';
+
+import { SharedModule } from '@/shared/infrastructure';
 import { UsersService } from './services/users.service';
 import { UsersResolver } from './users.resolver';
 

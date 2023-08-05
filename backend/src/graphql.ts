@@ -12,6 +12,10 @@ export interface AttendeeRegisterInput {
     eventId: string;
 }
 
+export interface AttendeeCount {
+    eventId: string;
+}
+
 export interface Credencials {
     email: string;
     password: string;
@@ -67,8 +71,17 @@ export interface Attendee {
     updatedAt: Date;
 }
 
+export interface IQuery {
+    attendeeCount(input: AttendeeCount): number | Promise<number>;
+    whoami(): Nullable<User> | Promise<Nullable<User>>;
+    eventFind(input: EventFindInput): Nullable<Event> | Promise<Nullable<Event>>;
+    eventSearch(input?: Nullable<EventSearchInput>): Nullable<EventSearchResult> | Promise<Nullable<EventSearchResult>>;
+    findUser(id: string): Nullable<User> | Promise<Nullable<User>>;
+    findAllUsers(): Nullable<Nullable<User>[]> | Promise<Nullable<Nullable<User>[]>>;
+}
+
 export interface IMutation {
-    attend(input: AttendeeRegisterInput): Attendee | Promise<Attendee>;
+    attendeeAttend(input: AttendeeRegisterInput): Attendee | Promise<Attendee>;
     login(input: Credencials): Nullable<AuthPayload> | Promise<Nullable<AuthPayload>>;
     refreshToken(): Nullable<AuthPayload> | Promise<Nullable<AuthPayload>>;
     eventCreate(input?: Nullable<EventInput>): Nullable<Event> | Promise<Nullable<Event>>;
@@ -80,14 +93,6 @@ export interface IMutation {
 export interface AuthPayload {
     accessToken: string;
     refreshToken: string;
-}
-
-export interface IQuery {
-    whoami(): Nullable<User> | Promise<Nullable<User>>;
-    eventFind(input: EventFindInput): Nullable<Event> | Promise<Nullable<Event>>;
-    eventSearch(input?: Nullable<EventSearchInput>): Nullable<EventSearchResult> | Promise<Nullable<EventSearchResult>>;
-    findUser(id: string): Nullable<User> | Promise<Nullable<User>>;
-    findAllUsers(): Nullable<Nullable<User>[]> | Promise<Nullable<Nullable<User>[]>>;
 }
 
 export interface Event {
