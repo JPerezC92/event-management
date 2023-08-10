@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
 import * as attendeeUseCase from '@/attendees/application';
+import { CancelAttendanceInput } from '@/attendees/application/unattend';
 import { attendeesPrismaRepository } from '@/attendees/infrastructure/repository';
 import { eventsPrismaRepository } from '@/events/infrastructure/repository';
 import { DatabaseService } from '@/shared/infrastructure/services';
@@ -35,6 +36,15 @@ export class AttendeesService {
                         attendeesPrismaRepository(trx),
                     )
                     .execute(eventId),
+        );
+    }
+
+    async unattend({ eventId, userId }: CancelAttendanceInput) {
+        return await this.db.$transaction(
+            async (trx) =>
+                await attendeeUseCase
+                    .Unattend(attendeesPrismaRepository(trx))
+                    .execute({ eventId, userId }),
         );
     }
 }

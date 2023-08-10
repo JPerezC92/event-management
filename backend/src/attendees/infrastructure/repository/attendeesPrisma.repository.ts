@@ -57,5 +57,26 @@ export function attendeesPrismaRepository(db: Db): AttendeesRepository {
 
             return count;
         },
+
+        async unregister(attendee) {
+            const attendeeDeleted = await db.eventAttendee.delete({
+                where: {
+                    eventId_userId: {
+                        eventId: attendee.event.id,
+                        userId: attendee.user.id,
+                    },
+                },
+                include: {
+                    event: true,
+                    user: true,
+                },
+            });
+
+            return attendeeDbToModelAdapter(
+                attendeeDeleted,
+                attendeeDeleted.event,
+                attendeeDeleted.user,
+            );
+        },
     };
 }

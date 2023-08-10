@@ -8,7 +8,11 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export interface AttendeeRegisterInput {
+export interface AttendeeAttendInput {
+    eventId: string;
+}
+
+export interface AttendeeUnattendInput {
     eventId: string;
 }
 
@@ -81,7 +85,8 @@ export interface IQuery {
 }
 
 export interface IMutation {
-    attendeeAttend(input: AttendeeRegisterInput): Attendee | Promise<Attendee>;
+    attendeeAttend(input: AttendeeAttendInput): Attendee | Promise<Attendee>;
+    attendeeUnattend(input: AttendeeUnattendInput): Attendee | Promise<Attendee>;
     login(input: Credencials): Nullable<AuthPayload> | Promise<Nullable<AuthPayload>>;
     refreshToken(): Nullable<AuthPayload> | Promise<Nullable<AuthPayload>>;
     eventCreate(input?: Nullable<EventInput>): Nullable<Event> | Promise<Nullable<Event>>;

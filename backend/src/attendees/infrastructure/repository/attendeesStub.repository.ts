@@ -37,5 +37,15 @@ export function attendeesStubRepository(): AttendeesRepository {
 
             return count;
         },
+
+        async unregister(attendee) {
+            attendeesInMemoryDatabase.filter(
+                (a) =>
+                    a.event.id === attendee.event.id &&
+                    a.user.id === attendee.user.id,
+            );
+
+            return attendee;
+        },
     };
 }

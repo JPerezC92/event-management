@@ -5,7 +5,11 @@ type Attendee {
     updatedAt: Date!
 }
 
-input AttendeeRegisterInput {
+input AttendeeAttendInput {
+    eventId: String!
+}
+
+input AttendeeUnattendInput {
     eventId: String!
 }
 
@@ -18,5 +22,6 @@ type Query {
 }
 
 type Mutation {
-    attendeeAttend(input: AttendeeRegisterInput!): Attendee!
+    attendeeAttend(input: AttendeeAttendInput!): Attendee!
+    attendeeUnattend(input: AttendeeUnattendInput!): Attendee!
 }

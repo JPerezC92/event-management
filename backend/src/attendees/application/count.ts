@@ -9,7 +9,6 @@ export interface CountInput {
 /**
  * @throws { EventNotFoundError }
  */
-
 export function Count(
     eventsRepository: EventsRepository,
     attendeesRepository: AttendeesRepository,

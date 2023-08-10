@@ -35,4 +35,15 @@ export class AttendeesResolver {
 
         return this.attendeesService.count(attendeeParticipantCount);
     }
+
+    @Mutation()
+    @UseGuards(JwtAccessGuard)
+    attendeeUnattend(@Args() { input }: Input, @UserFromReq() user: User) {
+        const attendeeCancel = attendeeSchema.attendeeCancel.parse(input);
+
+        return this.attendeesService.unattend({
+            ...attendeeCancel,
+            userId: user.id,
+        });
+    }
 }
