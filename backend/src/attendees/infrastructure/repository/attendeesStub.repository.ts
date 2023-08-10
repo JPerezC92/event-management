@@ -9,8 +9,10 @@ export const attendeeStub1: Attendee = new Attendee({
     updatedAt: new Date(),
 });
 
+export let attendeesInMemoryDatabase: Attendee[];
+
 export function attendeesStubRepository(): AttendeesRepository {
-    const attendeesInMemoryDatabase: Attendee[] = [attendeeStub1];
+    attendeesInMemoryDatabase = [attendeeStub1];
 
     return {
         async register(attendee) {
@@ -39,10 +41,10 @@ export function attendeesStubRepository(): AttendeesRepository {
         },
 
         async unregister(attendee) {
-            attendeesInMemoryDatabase.filter(
+            attendeesInMemoryDatabase = attendeesInMemoryDatabase.filter(
                 (a) =>
-                    a.event.id === attendee.event.id &&
-                    a.user.id === attendee.user.id,
+                    a.event.id !== attendee.event.id &&
+                    a.user.id !== attendee.user.id,
             );
 
             return attendee;
